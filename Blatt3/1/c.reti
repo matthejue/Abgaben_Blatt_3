@@ -1,7 +1,8 @@
 # Aufgabe c) start
 # Aufgabe b) start
-# LOADI SP a; -0.25 keine Ahnung wozu das da sein könnte >_<
-LOADI IN2 4; # -0.25 es muss IN2 sein damit eurer Programm klappt
+STOREIN SP DS 0
+SUBI SP 1;
+LOADI IN2 4;  # -0.25 es muss IN2 sein damit eurer Programm klappt
 # POLLING-LOOP start
 LOADI IN1 0;
 LOADI DS 1048576;
@@ -9,31 +10,35 @@ MULTI DS 1024;
 LOAD ACC 2;
 ANDI ACC 2;
 JUMP== -2;
-# LOAD IN1 1; # -0.25 ihr überschreibt es aber damit komplett!
-OR IN1 1; # -0.25 ihr überschreibt es aber damit komplett!
+# LOAD IN1 1;  # -0.25 ihr überschreibt es aber damit komplett!
+OR IN1 1;  # -0.25 ihr überschreibt es aber damit komplett!
 # POLLING-LOOP end
-# MULTI IN1 256; # -0.25 ihr shiftet damit aber einmal zuviel!
+# MULTI IN1 256;  # -0.25 ihr shiftet damit aber einmal zuviel!
 SUBI IN2 1;
-# STORE 2 0; # -0.25 den Befehl gibt es nicht
+# STORE 2 0;  # -0.25 den Befehl gibt es nicht
 LOADI ACC 0;
 STORE ACC 2;
 MOVE IN2 ACC;
-JUMP== 3; # -0.25 Loop springt nicht weit genug zurück
+JUMP== 3;  # -0.25 Loop springt nicht weit genug zurück
 MULTI IN1 256;
-JUMP -12; # -0.25 Loop springt nicht weit genug zurück
+JUMP -12;  # -0.25 Loop springt nicht weit genug zurück
 # Aufgabe b) end
 # LOADI DS 0
-# LOAD DS t # so wie ihr euch das gedacht habt funktioniert das nicht, weil die die anderen Bits nicht alle 0 sind beim gepollten Befehl
+# LOAD DS t  # so wie ihr euch das gedacht habt funktioniert das nicht, weil die die anderen Bits nicht alle 0 sind beim gepollten Befehl
 MOVE IN1 ACC
 DIVI ACC 1048576;
-DIVI ACC 16;
-MODI ACC 256;
-OPLUSI ACC 112;
-JUMP== 6; # -0.25 falsche Sprungdistanz
-LOADI DS -2097152;
-MULTI DS 1024;
-STOREIN SP IN1 0; # -0.25 den Befehl gibt es nicht
-SUBI SP 1; # -0.25 Stack wächst nach unten
-JUMP -25;
-# LOADI PC 0; der PicoC-Compiler braucht sowas nicht
+DIVI ACC 4;
+MODI ACC 1024;
+OPLUSI ACC 448;
+JUMP== 8;  # -0.25 falsche Sprungdistanz
+LOADIN SP ACC 1
+ADDI SP 1
+STOREIN ACC IN1 0
+ADDI ACC 1
+STOREIN SP ACC 0
+SUBI SP 1
+JUMP -27;
+# MOVE CS PC;  # Der PicoC-Compiler kann sowas bisher allerdings nicht
+# LOADI PC 0; blick ich nicht ganz durch .o.
 # Aufgabe c) end
+# 11.5/14 Sehr gute Arbeit
