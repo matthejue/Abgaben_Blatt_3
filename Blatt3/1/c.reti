@@ -1,7 +1,7 @@
 # Aufgabe c) start
-# Aufgabe b) start
 STOREIN SP DS 0
 SUBI SP 1;
+# Aufgabe b) start
 LOADI IN2 4;  # -0.25 es muss IN2 sein damit eurer Programm klappt
 # POLLING-LOOP start
 LOADI IN1 0;

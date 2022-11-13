@@ -1,0 +1,7 @@
+a.reti:8:5: UnexpectedToken: Expected e.g. IN1 or CS or IN2 or ACC or BAF or PC, found '2'.
+JUMP< -2
+ADD IN1 1
+SUBI 2 10
+    ^~    
+    IN1 or CS or IN2 or ACC or BAF or PC
+JUMP -3

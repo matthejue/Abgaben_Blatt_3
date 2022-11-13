@@ -1,0 +1,29 @@
+# b) start
+LOADI IN2 4
+# POLLING-LOOP start
+LOADI IN1 0
+LOADI DS 1048576  # so geht das viel eleganter
+MULTI DS 1024  # Bitshiften
+LOAD ACC 2
+# SUBI ACC 1027010  # wieso diese Zahl? 0011111010101111000010 und mit minus geht das nicht, da ihr nicht wisst ob in den anderen bits 1 oder 0 steht, -0.25 ergibt keinen Sinn
+# was haltet ihr von:
+ANDI ACC 2;
+# JUMP< -2 # Folgefehler
+JUMP== -2
+ADD IN1 1  # mit OR geht es übrigens auch und zwar an jeder belieben Stelle, ADD klappt nur wenn es sich um least significant bit handelt
+# SUBI 2 10  # -0.25 den Befehl gibt es nicht
+# ich schätze ihr wollt das Register wird auf 0 setzen
+# das geht so:
+SUBI ACC 2
+STORE ACC 2
+# JUMP -6  # beide jumps *1 und *2 springen nach hinten und der zweite jumpt sogar immer, das kann nicht stimmen. Dieser Jump nach hinten erigbt keinen Sinn -0.25
+# POLLING-LOOP end
+# MULTI IN1 100000000 # -0.25 ihr shiftet damit aber einmal zu viel
+SUBI IN2 1
+# LOAD ACC IN2  # den Befehl gibt es nicht -0.25
+MOVE IN2 ACC  # den Befehl gibt es nicht
+# JUMP= -4  # -0.25 die Bedingung des Jump ist genau falsch rum
+JUMP== 3  # so sorgt ihr dafür, dass beim letzten mal nicht geshiftet wird
+MULTI IN1 256  # 100000000
+JUMP -12  # die Bedingung des Jump ist genau falsch rum
+# b) end
