@@ -1,0 +1,42 @@
+# c) start
+MOVE DS SP
+LOADI DS 1048576
+MULTI DS 1024
+# b) start
+LOADI IN2 4
+LOADI IN1 0
+MULTI IN1 256
+# a) start
+# LOADI IN1 0 # zweimal hält besser, hm
+# LOADI DS 0
+# LOAD DS r
+# Ich will alle Korrekturen mit dem RETI-Interpreter ausführbar machen, daher schreibe ich es semantisch etwas um.
+LOADI DS 1048576
+MULTI DS 1024
+LOAD ACC 2
+# SUBI ACC 1027010 # -0.25 Immediates können aber nur 22-Bit groß sein
+# SUBI ACC 2 # -0.25 Was ist mit den anderen Bits des Registers?
+ANDI ACC 2
+JUMP== -2 # -0.25 falsche Relatioon
+ADD IN1 1
+# SUBI 2 10 # -0.25 diesen Befehl gibt es nicht, ich schätze ihr meint...
+LOAD ACC 2
+SUBI ACC 2
+STORE ACC 2
+# a) end
+# 3/4
+# MULTI IN1 256 # -0.25 hiermit würde einmal zu viel geshiftet werden
+SUBI IN2 1
+# LOAD ACC IN2 # -0.25 den Befehl gibt es nicht, ihr meint
+MOVE IN2 ACC
+JUMP> -12
+# b) end
+# 4.5/5
+STOREIN SP IN1 0
+ADDI SP 1
+LOADI ACC 1835008
+MULTI ACC 1024
+OPLUS ACC IN1
+JUMP!= -20
+# c) end
+# 4/5
