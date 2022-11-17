@@ -20,11 +20,11 @@ SUBI ACC 2
 STORE ACC 2;
 # a) end
 # 3.5/4
-# ADD IN1 0;
-# Counter muss runtergezählt werden und in ACC geschoben werden um vom JUMP
+# ADD IN1 0; ??
+# -0.5 Counter muss runtergezählt werden und in ACC geschoben werden um vom JUMP
 # verglichen werden zu können
 SUBI IN2 1
 MOVE IN2 ACC
 JUMP> -12;
 # b) end
-# /5
+# 4.25/5
