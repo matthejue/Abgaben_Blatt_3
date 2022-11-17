@@ -1,71 +1,75 @@
+# c) start
 STOREIN SP DS 0
 SUBI SP 1;
 # b) start
 LOADI IN2 4
-# POLLING-LOOP start
+# a) start
 LOADI IN1 0
-LOADI DS 1048576  # so geht das viel eleganter
+# LOADI DS 0
+# LOAD DS r
+LOADI DS 1048576  # so geht das viel eleganter und funktioniert mit dem RETI-Interpreter
 MULTI DS 1024  # Bitshiften
 LOAD ACC 2
-# SUBI ACC 10^27010 # mit minus geht das nicht, da ihr nicht wisst ob in den anderen bits 1 oder 0 steht, -0.25 ergibt keinen Sinn # Immediates haben nur 22-Bit Folgefehler -0.25
+# SUBI ACC 10^27010 # mit minus geht das nicht, da ihr nicht wisst ob in den anderen bits 1 oder 0 steht -0.25 # Immediates haben nur 22-Bit Folgefehler -0.25
 # was haltet ihr von:
 ANDI ACC 2;
 # JUMP< -2 # Folgefehler
 JUMP== -2
 ADD IN1 1  # mit OR geht es übrigens auch und zwar an jeder belieben Stelle, ADD klappt nur wenn es sich um least significant bit handelt
-# SUBI 2 10  # -0.25 den Befehl gibt es nicht
-# ich schätze ihr wollt das Register wird auf 0 setzen
+# SUBI 2 10  # -0.5 den Befehl gibt es nicht
+# ich schätze ihr wollt das Bit 1 im  Register wird auf 0 setzen
 # das geht so:
+LOAD ACC 2
 SUBI ACC 2
 STORE ACC 2
 # JUMP -6  # beide jumps *1 und *2 springen nach hinten und der zweite jumpt sogar immer, das kann nicht stimmen. Dieser Jump nach hinten erigbt keinen Sinn -0.25
-# POLLING-LOOP end
+# a) end
+# 2.75/4
 # MULTI IN1 100000000 # -0.25 ihr shiftet damit aber einmal zu viel
 SUBI IN2 1
 # LOAD ACC IN2  # den Befehl gibt es nicht -0.25
-MOVE IN2 ACC  # den Befehl gibt es nicht
+# ich schätze ihr meint:
+MOVE IN2 ACC
 # JUMP= -4  # -0.25 die Bedingung des Jump ist genau falsch rum
 JUMP== 3  # so sorgt ihr dafür, dass beim letzten mal nicht geshiftet wird
 MULTI IN1 256  # 100000000
-JUMP -12  # die Bedingung des Jump ist genau falsch rum
+JUMP -13
 # b) end
+# 4.25/5
 # LOADI c a # diesen Befehl gibt es nicht, c muss ein Register sein -0.25
-# # eurem Kommentar von vorhin nach zu urteilen ist c eine Speicherzelle,
-# also die Adresse einer Speicherzlle
+# # eurem Kommentar von vorhin nach zu urteilen ist c die Adresse einer Speicherzelle
 # Register agieren als Boten, um Werte in Speicherzellen zu schreiben
 # ADD IN1 s # -0.25 Aber in IN1 steht doch euer Befehl, den ihr im nächsten Schritt abspeichern
-# so geht es eleganter
-LOADI ACC 1835008
-MULTI ACC 1024
-# wollst an Adressse c # diesen Schritt kann ich nichg ganz nachvollziehen,
-# meindet ihr das DS-Register >_<
+# wollst an Adressse c # diesen Schritt kann ich nichg ganz nachvollziehen
 # STOREIN c IN1 0 # ihr schreibt den Befehl im Register IN1, den ihre gerade überschrieben habt nun an Adresse c
-# diesen Befehl auch nicht, wenn c eine Adresse einer Speicherzelle sein soll, Folgefehler >_<
+# diesen Befehl gibt es auch nicht, wenn c eine Adresse einer Speicherzelle sein soll, Folgefehler >_<
 # Ich gehe ab jetzt davon aus, dass c ein Register ist. Sind euch die Register
 # ausgegangen?
 # sobald alle Register man zum Abspeichern von Variablen keine Register mehr übrig hat, verwendet man den Stack zum Abspeichern
-# ADDI c 1  # nächste Speicherzelle, ergibt im Gesamtzusmammenahng zwar so keinen Sinn, aber der Logik
-# kann man folgen
-# LOAD ACC 2 # -0.25 Wieso wieder das Statusregister, das braucht ihr hier doch
-# garnicht
-# SUBI ACC 110^27001 # Das 0te Bit des Statusregisters ist für diese Aufgabe
-# irrelevant, ihr wollst doch nichts senden # Immediates haben nur 22-Bit Folgefehler
-# Folgefehler, Subtrahieren funktioniert nicht, da ihr nicht wisst, ob die
-# anderen Register 0 sind
-# JUMP< − 18
-# LOAD ACC t # Habt ihr hier aufgehört? Ihr müsst die Konstante t doch noch
-# vergleichen >_<
-
-# So sollte der Schluss ungefähr aussehen:
-OPLUS ACC IN1;
-JUMP== 8;
+# ADDI c 1  # gibt es nicht wenn c die Adresse einer Speicherzelle sein soll
+# aber ich gehe jetzt von Register aus. Dann korrekt ^_^
+# so geht das ganze eleganter:
 LOADIN SP ACC 1
 ADDI SP 1
 STOREIN ACC IN1 0
 ADDI ACC 1
 STOREIN SP ACC 0
 SUBI SP 1
-JUMP -25;
+# LOAD ACC 2 # -0.25 Wieso wieder das Statusregister, das braucht ihr hier doch
+# garnicht
+# SUBI ACC 110^27001 # Das erste Bit des Statusregisters ist für diese Aufgabe
+# irrelevant, ihr wollst doch nichts senden # Immediates haben nur 22-Bit Folgefehler
+# JUMP< − 18
+# LOAD ACC t # Habt ihr hier aufgehört? Ihr müsst die Konstante t doch noch
+# vergleichen >_<
+# das geht so:
+LOADI ACC 1835008
+MULTI ACC 1024
+OPLUS ACC IN1;
+JUMP!= -25;
+# LOADI SP a # ist korrekt, aber ich mache das mal über den Jump oben, damit das ganze auch im
+# RETI-Interpreter läuft
+# c) end
 
-# die c) hatte leider keine für mich erkennbare Struktur und hat die Aufgabenstellung und
-# vor allem die schwierigen wirklcih knifflilgen Parts nicht wirklich gelöst, 1/5 für die Mühe
+# die c) hat die Aufgabenstellung und vor allem die schwierigen wirklich
+# knifflilgen Parts nicht wirklich gelöst, 2/5 für die Mühe

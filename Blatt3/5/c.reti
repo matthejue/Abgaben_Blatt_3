@@ -7,30 +7,29 @@ LOADI IN2 4
 LOADI IN1 0
 # LOADI DS 0
 # LOAD DS r
-# damit das im RETI-Interpreter funktioniert muss ich aber das hier einfügen
+# damit das im RETI-Interpreter funktioniert hab ich das hier eingefügt:
 LOADI DS 1048576;
 MULTI DS 1024;
 LOAD ACC 2
 ANDI ACC 2
 SUBI ACC 2
 JUMP>= 2
-JUMP< -6 # es würde eigentlich auch in JUMP reichen, aber funktioniert ^^
+JUMP< -6 # es würde eigentlich auch ein JUMP reichen, aber funktioniert ^^
 # LOADI DS 0
 # LOAD DS r
 LOADI DS 1048576;
 MULTI DS 1024;
-ADD IN1 1
+ADD IN1 1 # korrekto
 # wieso ladet ihr ständig die Konstante? Ihr überschreibt ja zwischendurch nicht das DS-Register
 # LOADI DS 0
 # LOAD DS r
 LOADI DS 1048576;
 MULTI DS 1024;
-# LOAD ACC 2 # wozu ladet ihr es erneut?
-# SUBI ACC 2 # keine Ahnung was ihr hier erreichen wollt. So resetet ihr jedoch nicht Bit 1 des Statusregisters -0.5
-LOADI ACC 0
-STORE ACC 2
+LOAD ACC 2 # nice, viele haben vergessen, dass man nur Bit 1 auf 0 setzen soll
+SUBI ACC 2
+STORE ACC 2 # aber wo ist das Store? -0.25
 # a) end
-# 3.5/4
+# 3.75/4
 # MULTI IN1 256 # -0.25 so shiftet ihr aber am Ende einmal zu viel, daher verschieben wir das mal zwischen die beiden JUMPS da
 SUBI IN2 1
 # -0.25 ihr müsst IN2 aber zuvor ins ACC Register laden, weil JUMP nur ACC mit
@@ -38,33 +37,30 @@ SUBI IN2 1
 MOVE IN2 ACC
 JUMP== 3
 MULTI IN1 256
-JUMP -16
+JUMP -17
 # b) end
 # 4.5/5
-# korrekt, es geht aber auch ohne in die SRAM Konstante laden zu müssen, indem
-# man wie oben am Anfang von c) start sieht
 # LOADI DS 0
 # LOAD DS s
-STORE IN1 a
-# a+1 -0.25, das macht man so:
+# korrekt, es geht aber auch ohne in die SRAM Konstante laden zu müssen, indem
+# man vorgeht wie man oben am Anfang von c) start sieht
+# STORE IN1 a
+# a+1 -1, das macht man so:
 # ihr hattet sicher das Problem, dass ihr zu wenige Register übrig hattet, in
-# diesem Fall verwendet man den Stack
-# LOADI DS 0
-# LOAD ACC t
-# SUB ACC IN1
-JUMP= +2
-JUMP -9
-
-LOADI ACC 1835008
-MULTI ACC 1024
-OPLUS ACC IN1
-JUMP== 8
+# diesem Fall verwendet man den Stack.
 LOADIN SP ACC 1
 ADDI SP 1
 STOREIN ACC IN1 0
 ADDI ACC 1
 STOREIN SP ACC 0
 SUBI SP 1
-JUMP -23
+# LOADI DS 0
+# LOAD ACC t so geht das eleganter:
+LOADI ACC 1835008
+MULTI ACC 1024
+SUB ACC IN1
+JUMP== 2
+JUMP -32
+# oder einfach: JUMP!= -32
 # c) end
-# /5
+# 4/5

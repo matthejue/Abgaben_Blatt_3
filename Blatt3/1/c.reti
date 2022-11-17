@@ -2,8 +2,10 @@
 STOREIN SP DS 0
 SUBI SP 1;
 # Aufgabe b) start
+# LOADI SP a das geht auch aber damit es mit dem RETI-Interpreter funktioniert
+# muss ich das auskommentieren
 LOADI IN2 4;  # -0.25 es muss IN2 sein damit eurer Programm klappt
-# POLLING-LOOP start
+# a) start
 LOADI IN1 0;
 LOADI DS 1048576;
 MULTI DS 1024;
@@ -12,31 +14,39 @@ ANDI ACC 2;
 JUMP== -2;
 # LOAD IN1 1;  # -0.25 ihr überschreibt es aber damit komplett!
 OR IN1 1;  # so macht man das
-# POLLING-LOOP end
-# MULTI IN1 256;  # -0.25 ihr shiftet damit aber einmal zuviel!
+# a) end
+# 3.75/4
+# MULTI IN1 256;  # -0.25 ihr shiftet damit aber einmal zuviel! daher das MULTI
+# zwischen die beiden Jumps
 SUBI IN2 1;
 # STORE 2 0;  # -0.25 den Befehl gibt es nicht
-LOADI ACC 0;
+# LOADI ACC 0;  # -0.25 aber ihr wollt doch nur das erste Bit überschreiben
+LOAD ACC 2; # ACC mit dem Wert des Statusregisters wurde in der Zwischenzeit überschrieben
+SUBI ACC 2
 STORE ACC 2;
 MOVE IN2 ACC;
-JUMP== 3;  # -0.25 Loop springt nicht weit genug zurück
+JUMP== 3;
 MULTI IN1 256;
-JUMP -12;  # -0.25 Loop springt nicht weit genug zurück
+JUMP -13;  # eure Loop springt nicht weit genug zurück
 # Aufgabe b) end
-# LOADI DS 0
-# LOAD DS t
-# So geht es eleganter:
-LOADI ACC 1835008
-MULTI ACC 1024
-OPLUS ACC IN1; # -0.25 so wie ihr euch das gedacht habt funktioniert das nicht, weil die die anderen Bits nicht alle 0 sind beim gepollten Befehl # aber richtiger Ansatz mit Xor
-JUMP== 8;
+# 4/5
+# einem gehen hier die Register aus, daher speichert und lädt man vom Stack
 LOADIN SP ACC 1
 ADDI SP 1
 STOREIN ACC IN1 0
 ADDI ACC 1
 STOREIN SP ACC 0
 SUBI SP 1
-JUMP -25;
+# -0.25 zuerst den Befehl speichern und dann erst checken ob es LOADI PC 0 ist,
+# sonst speichert iht den letzten Befehl ja garnicht
+# LOADI DS 0
+# LOAD DS t
+# So geht es eleganter:
+LOADI ACC 1835008
+MULTI ACC 1024
+OPLUS ACC IN1; # richtiger Ansatz von euch mit Xor
+# aber DS Register ist dafür unpassend, aber passt
+JUMP!= -25;
 # LOADI PC 0; # Korrekto, aber der PicoC-Compiler hat wie er implementiert ist
 # leider schon ein festes Startprogramm
 # Aufgabe c) end

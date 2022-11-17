@@ -18,7 +18,7 @@ LOAD ACC 2
 ANDI ACC 2
 JUMP== -2
 ADD IN1 1 # OR ist da besser, weil es an wirklich jedem Index funktioneirt, ADD funktioniert nur für least siginificant Bits
-# LOAD ACC 2 # warum ladet ihr es erneut? ist nicht falsch aber unnötig
+LOAD ACC 2 # korrekto, viele habe vergessen, dass ACC in der Zwischenzeit überschrieben wurde
 SUBI ACC 2
 STORE ACC 2
 # a) end
@@ -33,26 +33,14 @@ MOVE IN2 ACC
 # *1:
 JUMP== 3
 MULTI IN1 256
-JUMP -10
+JUMP -11
 # b) end
 # 4.5/5
 # LOADI DS 0 korrekt aber...
 # LOAD ACC t korrekt aber...
 # LOAD DS s korrekt aber...
-# und das speichern am besten auf später verlegen, damit ihr mehr Register frei
-# habt und stattdessen davor noch die Bedingung checken:
-# ADDI SP 1
-# SUB ACC IN1
-# JUMP!= -21
-# so geht es eleganter:
-# eucht interessieren nur die letzten most siginificant bits, daher einfach
-# nach rechts shfiten und so braucht ihre auch keiine Konstante zu laden:
-LOADI ACC 1835008
-MULTI ACC 1024
-# euch gehen würden: OPLUSI ACC 448; aber um bei eurem Vorgehen zu bleiben:
-SUB ACC IN1
-JUMP== 8;
-# STORE IN1 SP # Folgefehler, diesen Befehl gibt es nicht, ihr meint vermutlich:
+# so geht es eleganter ohne das man die SRAM Konstante laden braucht:
+# STORE IN1 SP # -0.25 diesen Befehl gibt es nicht, ihr meint vermutlich:
 # STOREIN SP IN1 0
 # ADDI SP 1
 # wobei ich folgendes bevorzuge:
@@ -64,9 +52,14 @@ STOREIN ACC IN1 0
 ADDI ACC 1
 STOREIN SP ACC 0
 SUBI SP 1
-JUMP -25;
+# LOAD ACC t oder eleganter:
+LOADI ACC 1835008
+MULTI ACC 1024
+# euch gehen würden: OPLUSI ACC 448; aber um bei eurem Vorgehen zu bleiben:
+SUB ACC IN1
+JUMP!= -25;
 # c) end
 # LOADI SP a # diesmal funktioniert es, da nun die SRAM-Konstante hier stehen
 # sollte, aber ich mache das mal über den Jump oben, damit das ganze auch im
 # RETI-Interpreter läuft
-# 4.75/5 sehr gute Arbeit ^_^
+# 4.5/5 sehr gute Arbeit ^_^
