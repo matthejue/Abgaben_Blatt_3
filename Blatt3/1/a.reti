@@ -6,3 +6,5 @@ LOAD ACC 2;
 ANDI ACC 2;
 JUMP== -2;
 LOAD IN1 1;
+
+# 4/4 funktioniert ^_^

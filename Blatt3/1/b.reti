@@ -1,4 +1,4 @@
-# LOADI SP a; -0.25 keine Ahnung wozu das da sein könnte >_<
+# LOADI SP a; # für die b) n noch nicht relevant
 LOADI IN2 4; # -0.25 es muss IN2 sein damit eurer Programm klappt
 # POLLING-LOOP
 LOADI IN1 0;
@@ -9,7 +9,7 @@ LOAD ACC 2;
 ANDI ACC 2;
 JUMP== -2;
 # LOAD IN1 1; # -0.25 ihr überschreibt es aber damit komplett!
-OR IN1 1; # -0.25 ihr überschreibt es aber damit komplett!
+OR IN1 1; # so macht man das
 # POLLING-LOOP
 # MULTI IN1 256; # -0.25 ihr shiftet damit aber einmal zuviel!
 SUBI IN2 1;
@@ -17,6 +17,7 @@ SUBI IN2 1;
 LOADI ACC 0;
 STORE ACC 2;
 MOVE IN2 ACC;
-JUMP== 3; # -0.25 Loop springt nicht weit genug zurück
+JUMP== 3; # Loop springt nicht weit genug zurück
 MULTI IN1 256;
-JUMP -13; # -0.25 Loop springt nicht weit genug zurück
+JUMP -13; # Loop springt nicht weit genug zurück
+# 4/5

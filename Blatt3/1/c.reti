@@ -11,7 +11,7 @@ LOAD ACC 2;
 ANDI ACC 2;
 JUMP== -2;
 # LOAD IN1 1;  # -0.25 ihr überschreibt es aber damit komplett!
-OR IN1 1;  # -0.25 ihr überschreibt es aber damit komplett!
+OR IN1 1;  # so macht man das
 # POLLING-LOOP end
 # MULTI IN1 256;  # -0.25 ihr shiftet damit aber einmal zuviel!
 SUBI IN2 1;
@@ -24,13 +24,14 @@ MULTI IN1 256;
 JUMP -12;  # -0.25 Loop springt nicht weit genug zurück
 # Aufgabe b) end
 # LOADI DS 0
-# LOAD DS t  # so wie ihr euch das gedacht habt funktioniert das nicht, weil die die anderen Bits nicht alle 0 sind beim gepollten Befehl
+# LOAD DS t
+# So geht es eleganter
 MOVE IN1 ACC
 DIVI ACC 1048576;
 DIVI ACC 4;
 MODI ACC 1024;
-OPLUSI ACC 448;
-JUMP== 8;  # -0.25 falsche Sprungdistanz
+OPLUSI ACC 448; # -0.25 so wie ihr euch das gedacht habt funktioniert das nicht, weil die die anderen Bits nicht alle 0 sind beim gepollten Befehl # aber richtiger Ansatz mit Xor
+JUMP== 8;
 LOADIN SP ACC 1
 ADDI SP 1
 STOREIN ACC IN1 0
@@ -38,7 +39,8 @@ ADDI ACC 1
 STOREIN SP ACC 0
 SUBI SP 1
 JUMP -27;
-# MOVE CS PC;  # Der PicoC-Compiler kann sowas bisher allerdings nicht
-# LOADI PC 0; blick ich nicht ganz durch .o.
+# LOADI PC 0; # Korrekto, aber der PicoC-Compiler hat wie er implementiert ist
+# leider schon ein festes Startprogramm
 # Aufgabe c) end
-# 11.5/14 Sehr gute Arbeit
+# 4.75 / 5 sehr viele korrekte Ansätze, musste nicht viel abändern, damit es
+# durchläuft

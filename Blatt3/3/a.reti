@@ -2,7 +2,7 @@ LOADI IN1 0 # eigentlich sollte in IN1 der Befehl gespeichet werden aber passt s
 LOADI DS 1048576  # so geht das viel eleganter
 MULTI DS 1024  # Bitshiften
 LOAD ACC 2
-# SUBI ACC 1027010  # wieso diese Zahl? 0011111010101111000010 und mit minus geht das nicht, da ihr nicht wisst ob in den anderen bits 1 oder 0 steht, -0.25 ergibt keinen Sinn
+# SUBI ACC 010^27010 # mit minus geht das nicht, da ihr nicht wisst ob in den anderen bits 1 oder 0 steht, -0.25 ergibt keinen Sinn # Immediates haben nur 22-Bit Folgefehler -0.25
 # was haltet ihr von:
 ANDI ACC 2;
 # JUMP< -2 # Folgefehler
@@ -14,3 +14,4 @@ ADD IN1 1  # mit OR geht es übrigens auch und zwar an jeder belieben Stelle, AD
 SUBI ACC 2
 STORE ACC 2
 # JUMP -6  # beide jumps *1 und *2 springen nach hinten und der zweite jumpt sogar immer, das kann nicht stimmen. Dieser Jump nach hinten erigbt keinen Sinn -0.25
+# 3/4

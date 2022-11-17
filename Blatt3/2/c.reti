@@ -1,0 +1,69 @@
+# c) start
+# LOADI SP a korrekt, aber ich bevorzuge:
+STOREIN SP DS 0
+SUBI SP 1
+# b) start
+LOADI IN2 4
+# a) start
+LOADI IN1 0
+# LOADI DS 0;
+# LOAD DS r
+# so geht das eleganter
+LOADI DS -2097152;
+MULTI DS 512;
+LOAD ACC 2
+ANDI ACC 2
+JUMP== -2
+ADD IN1 1 # OR ist da besser, weil es an wirklich jedem Index funktioneirt, ADD funktioniert nur für least siginificant Bits
+# LOAD ACC 2 # warum ladet ihr es erneut? ist nicht falsch aber unnötig
+SUBI ACC 2
+STORE ACC 2
+# a) end
+# 4/4 gut Arbeit ist direkt durchgelaufen ^_^
+# MULTI IN1 256 # -0.25 leider werdet ihr so einmal zu oft shiften. Macht es
+# daher am besten wie folgt: *1
+SUBI IN2 1
+# LOAD ACC IN2 # den Befehl gibt es nicht -0.25
+# ihr meint wohl eher:
+MOVE IN2 ACC
+# JUMP> -10 # richtige Sprungdistanz, nice ^_^
+# *1:
+JUMP== 3
+MULTI IN1 256
+JUMP -10
+# b) end
+# 4.5/5
+# LOADI DS 0 korrekt aber...
+# LOAD ACC t korrekt aber...
+# LOAD DS s korrekt aber...
+# und das speichern am besten auf später verlegen, damit ihr mehr Register frei
+# habt und stattdessen davor noch die Bedingung checken:
+# ADDI SP 1
+# SUB ACC IN1
+# JUMP!= -21
+# so geht es eleganter:
+# eucht interessieren nur die letzten most siginificant bits, daher einfach
+# nach rechts shfiten und so braucht ihre auch keiine Konstante zu laden:
+MOVE IN1 ACC
+DIVI ACC 1048576;
+DIVI ACC 4;
+MODI ACC 1024; # links abschneiden da negative Zahlen Problemem machen, da sie 1en einfügen
+# euch gehen würden: OPLUSI ACC 448; aber um bei eurem Vorgehen zu bleiben:
+SUBI ACC 448
+JUMP== 8;
+
+# STORE IN1 SP # Folgefehler, diesen Befehl gibt es nicht, ihr meint vermutlich:
+# STOREIN SP IN1 0
+# ADDI SP 1
+# wobei ich folgendes bevorzuge:
+# den counter mussten wir auf dem Stack speichern, da wir nicht genug
+# Register übrig haben
+LOADIN SP ACC 1
+ADDI SP 1
+STOREIN ACC IN1 0
+ADDI ACC 1
+STOREIN SP ACC 0
+SUBI SP 1
+JUMP -27;
+# c) end
+# LOADI SP
