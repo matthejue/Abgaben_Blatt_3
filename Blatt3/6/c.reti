@@ -2,12 +2,16 @@
 #        ^^^^^^^^^^^
 #        BITTE LESEN
 
-# # WRITECODE:
-# # LOADI DS 0 ; Zugriff auf Daten im EPROM.
-# # LOAD DS s ; Konstante 100...0 in DS laden --> Zugriff auf SRAM.
+# c) start
+# LOADI DS 0 ; Zugriff auf Daten im EPROM.
+# LOAD DS s ; Konstante 100...0 in DS laden --> Zugriff auf SRAM.
 # LOADI DS -2147483648
 # MULTI DS 1024
 # LOADI CS 50 # Speichern der Startadresse in Register.
+#% Im RETI-Interpreter ist das DS-Regsiter bereits passend mit der
+#% SRAM-Konstante eingestellt. Ich will jedem Studenten eine ausführbare
+#% Korrektur geben, daher muss ich das leicht abändern
+ADDI CS 21 # Speichern der Startadresse in Register.
 
 # b) start
 LOADI IN2 4 # Benutze IN2 als Schleifenzähler.
@@ -46,19 +50,27 @@ JUMP> -11 # Schleife bis IN2 = 0
 
 # LOADI DS 0 # Zugriff auf Daten im EPROM.
 # LOAD ACC t # lädt Kodierung von "LOADI PC 0" in den Akkumulator.
+# Der RETI-Interpreter kann das leider noch nicht, daher:
+LOADI ACC 1835008
+MULTI ACC 1024
 # LOAD DS s # Konstante 100...0 in DS laden --> Zugriff auf SRAM.
-# STOREIN CS IN1 0 # Kopiervorgang von IN1 in die nächste Speicheradresse
-# # nach dem bisher eingelesenen Code.
-# ADDI CS 1
-# # Anpassung des CS.
-# OPLUS ACC IN1 # Vergleich des letzten geschriebenen Befehls mit "LOADI PC 0".
-# JUMP> -7
-# # Sprung zum Einlesen des nächsten Befehls.
-# LOADI DS 0
-# # Zugriff auf Daten im EPROM.
+#% Das braucht ihr garnicht, da CS doch eh schon korrekt eingstellt ist ^_^
+STOREIN CS IN1 0 # Kopiervorgang von IN1 in die nächste Speicheradresse
+# nach dem bisher eingelesenen Code.
+ADDI CS 1 # Anpassung des CS.
+OPLUS ACC IN1 # Vergleich des letzten geschriebenen Befehls mit "LOADI PC 0".
+# JUMP> -19 # Sprung zum Einlesen des nächsten Befehls.
+#% -0.25 Die Bedingung > macht Probleme, wenn in In1 eine Befehl steht, der
+#einer negativen Zahl entspricht
+JUMP!= -19 # Sprung zum Einlesen des nächsten Befehls.
+# LOADI DS 0 # Zugriff auf Daten im EPROM.
 # LOAD ACC s
 # # Konstante 100...0 (SRAM) in ACC laden.
-# ADDI ACC a
-# # Volle Adresse des ersten eingelesenen Befehls
+# ADDI ACC a # Volle Adresse des ersten eingelesenen Befehls
 # # in den Akkumulator geschrieben.
 # MOVE ACC PC # Ausführung des eingelesenen Programs.
+#% Im RETI-Interpreter ist das leider nicht möglich. Damit du diese Korrektur
+#% auch ausführen kannst, hab ich es so gelöst das Programm in Datensegment zu
+#% schreiben
+# c) end
+# 4.75/5 Sehr gute Arbeit!
