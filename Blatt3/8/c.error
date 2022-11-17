@@ -1,0 +1,9 @@
+c.reti:51:7: UnexpectedCharacter: No terminal matches '−' in the current lexical context of '!='.
+MULTI ACC 1024
+OPLUS ACC IN1
+JUMP!= −21
+     ^ ~   
+     context of '!='
+# LOADI PC a, das ist im RETI-Interpter nicht umesetztbar, deswegen steht das
+# ausfzuführende Programm am Anfang des Datensegments
+# c) end

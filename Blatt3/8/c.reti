@@ -1,0 +1,55 @@
+# c) start
+# LOADI SP a # Ich will alle Korrekturen mit dem RETI-Interpreter ausführbar machen, daher schreibe ich es semantisch etwas um.
+MOVE DS SP
+
+# b) start
+LOADI IN2 4
+LOADI IN1 0 # wieso zweimal?
+# MULTI IN1 256 # -0.25 Wenn MULTI hier ist, dann wird im nächsten Schritt aber IN1 gleich wieder mit 0 überschrieben
+
+# a) start
+LOADI IN1 0
+MULTI IN1 256
+
+# LOADI DS 0
+# LOAD DS r
+# Ich will alle Korrekturen mit dem RETI-Interpreter ausführbar machen, daher schreibe ich es semantisch etwas um.
+LOADI DS 1048576
+MULTI DS 1024
+
+LOAD ACC 2
+ANDI ACC 2
+JUMP== -2
+ADD IN1 1
+# LOAD ACC 2 -0.25 ihr überschreibt so aber auch die anderen Bits des Statusregisters mit 0
+# ORI ACC 2 ihr könntest es viel eleganter machen, einfach direkt OPLUS
+OPLUS ACC 2
+STORE ACC 2
+# a) end
+# 3.75/4
+
+# MOVE IN2 ACC wieso so umständlich?
+# SUBI ACC 1
+SUBI IN2 1
+MOVE IN2 ACC
+JUMP> -11
+# b) end
+# 4.75/5
+
+# LOADI DS 0
+# LOAD DS s
+# SRAM Konstante zu laden ist nicht notwendig bei STOREIN und LOADIN
+STOREIN SP IN1 0
+ADDI SP 1
+# LOAD DS 0
+# OPLUS IN1 t raffiniert gelöst mit dem DS-Register, ich muss es aber trotz allem für den
+# RETI-Interpreter umschreiben zu:
+MOVE IN1 ACC
+LOADI ACC 1835008
+MULTI ACC 1024
+OPLUS ACC IN1
+JUMP!= -21
+# LOADI PC a, das ist im RETI-Interpter nicht umesetztbar, deswegen steht das
+# ausfzuführende Programm am Anfang des Datensegments
+# c) end
+# 5/5

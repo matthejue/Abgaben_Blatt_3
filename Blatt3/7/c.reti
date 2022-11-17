@@ -1,0 +1,57 @@
+# # c) start
+LOADI IN1 0
+MOVE CS BAF
+
+# # b) start
+# LOADI DS 0
+# LOAD DS r
+# Damit ihr eine ausführbare Abgabe habt, muss ich es etwas an den
+# RETI-Interpreter anpassen
+LOADI DS 1048576
+MULTI DS 1024
+LOADI IN2 4
+SUBI IN2 1
+MULTI IN1 256
+
+# a) start
+LOAD ACC 2
+# SUBI ACC 2
+# -0.5 das funktioniert nicht, die anderen Bits des Statursregisters müssen
+# nicht leer sein. Daher:
+ANDI ACC 2
+JUMP== -2
+ADD IN1 1 # korrekt aber ORI ist im generellen besser, es geht an jeder Position und nicht nur bei den least-significant bits
+# LOADI ACC 0  # -0.25 ihr überschreibt so aber die anderen Bits des Statursregisters. Daher:
+OPLUS ACC 2
+STORE ACC 2
+# a) end
+# 3.25/4
+
+# MOVE IN1 ACC # -0.25 falsches Register
+MOVE IN2 ACC # -0.25 falsches Register
+JUMP!= -9
+# # b) end
+# 4.75/5
+
+# LOADI DS 0
+# LOAD IN2 t
+# OPLUS IN2 IN1
+# Wegen dem RETI-Interpreter muss ich das alle etwas umschreiben. Ich mache es
+# so, dass alle Korrekturen später ausführbar sein sollen.
+# LOAD DS s # anders umsetzen für RETI-Interpreter:
+LOADI DS -2097152
+MULTI DS 1024
+STOREIN BAF IN1 23
+ADDI BAF 1
+LOADI ACC 1835008
+MULTI ACC 1024
+OPLUS ACC IN1
+JUMP!= -20
+# # c) end
+# LOADI DS 0
+# LOAD ACC s
+# ADDI ACC a
+# MOVE ACC PC
+# Das kann ich im RETI-Interpreter noch nicht umsetzen. Daher steht das
+# Programm am Anfang des Datensegments im Speicher.
+# 5/5 alle wichtigen Details beachtet
