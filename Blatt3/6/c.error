@@ -1,0 +1,9 @@
+c.reti:23:4: UnexpectedCharacter: No terminal matches '=' in the current lexical context of JUMP.
+ANDI ACC 2
+# Bitmaske, die alle Bits außer dem vorletzten auf 0 setzt.
+JUMP= -2
+   ^~    
+   context of JUMP
+# Ist das vorletzte Bit ebenfalls 0, dann springe zurück
+# und lade neue Daten.
+LOAD IN1 1 # b1 = 1, Schreibvorgang von R1 nach IN1.

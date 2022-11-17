@@ -1,48 +1,64 @@
-; POLLING LOOP:
-LOADI IN1 0 ; IN1 auf 0 setzen (hier kann spaeter Inhalt aus R1 addiert werden).
-LOADI DS 0 ; Zugriff auf Daten im EPROM.
-LOAD DS r
-; Konstante 010...0 in DS laden --> Zugriff auf UART.
-LOAD ACC 2 ; Statusregister R2 in Akkumulator laden.
+# Meine Kommentare haben ein %, also #% kommentar
+#        ^^^^^^^^^^^
+#        BITTE LESEN
+
+# # WRITECODE:
+# # LOADI DS 0 ; Zugriff auf Daten im EPROM.
+# # LOAD DS s ; Konstante 100...0 in DS laden --> Zugriff auf SRAM.
+# LOADI DS -2147483648
+# MULTI DS 1024
+# LOADI CS 50 # Speichern der Startadresse in Register.
+
+# b) start
+LOADI IN2 4 # Benutze IN2 als Schleifenzähler.
+#% MULTI IN1 256 # Linkshift durch Multiplikation, vor POLLING damit der Linksshift nur 3 mal auf die Eingabe wirkt.
+#% -0.25 Lieder passiert es beim zurückspringen, dass durch den nächsten LOADI IN1 0 IN1 überschrieben wird
+#% Daher muss MULTI später gesetzt werden
+
+# a) start
+LOADI IN1 0 # IN1 auf 0 setzen (hier kann spaeter Inhalt aus R1 addiert werden).
+MULTI IN1 256
+# LOADI DS 0 # Zugriff auf Daten im EPROM.
+# LOAD DS r
+#% Damit es mit dem RETI-Interpreter funktioniert, aber euers ist korrekt:
+LOADI DS 1048576
+MULTI DS 1024 # Konstante 010...0 in DS laden --> Zugriff auf UART.
+LOAD ACC 2 # Statusregister R2 in Akkumulator laden.
 ANDI ACC 2
-; Bitmaske, die alle Bits außer dem vorletzten auf 0 setzt.
-JUMP= -2
-; Ist das vorletzte Bit ebenfalls 0, dann springe zurück
-; und lade neue Daten.
-LOAD IN1 1 ; b1 = 1, Schreibvorgang von R1 nach IN1.
-OPLUS ACC 2 ; ACC = 0...0010 O+ R2, b1 wird geflippt.
-STORE ACC 2 ; Speichern des neuen Status in R2.
-; INPUTCOMMAND:
-LOADI IN2 4 ; Benutze IN2 als Schleifenzähler.
-MULI IN1 2^8 ; Linkshift durch Multiplikation, vor POLLING damit
-; der Linksshift nur 3 mal auf die Eingabe wirkt.
-POLLING
-; Code aus Teil a).
-SUBI IN2 1
-; Anpassung des Schleifenzählers.
-MOVE IN2 ACC ; Kopiervorgang von IN2 nach ACC, da JUMP den Akkumulator vergleicht.
-JUMP> -4
-; Schleife bis IN2 = 0
-; WRITECODE:
-LOADI DS 0 ; Zugriff auf Daten im EPROM.
-LOAD DS s ; Konstante 100...0 in DS laden --> Zugriff auf SRAM.
-LOADI CS a ; Speichern der Startadresse in Register.
-INPUTCOMMAND ; Code aus Teil b), setzt DS wieder auf UART.
-LOADI DS 0 ; Zugriff auf Daten im EPROM.
-LOAD ACC t ; lädt Kodierung von "LOADI PC 0" in den Akkumulator.
-LOAD DS s ; Konstante 100...0 in DS laden --> Zugriff auf SRAM.
-STOREIN CS IN1 0 ; Kopiervorgang von IN1 in die nächste Speicheradresse
-; nach dem bisher eingelesenen Code.
-ADDI CS 1
-; Anpassung des CS.
-OPLUS ACC IN1 ; Vergleich des letzten geschriebenen Befehls mit "LOADI PC 0".
-JUMP> -7
-; Sprung zum Einlesen des nächsten Befehls.
-LOADI DS 0
-; Zugriff auf Daten im EPROM.
-LOAD ACC s
-; Konstante 100...0 (SRAM) in ACC laden.
-ADDI ACC a
-; Volle Adresse des ersten eingelesenen Befehls
-; in den Akkumulator geschrieben.
-MOVE ACC PC ; Ausführung des eingelesenen Programs.
+# Bitmaske, die alle Bits außer dem vorletzten auf 0 setzt.
+JUMP== -2
+# Ist das vorletzte Bit ebenfalls 0, dann springe zurück
+# und lade neue Daten.
+# LOAD IN1 1 #% -0.25 leider überschreibt ihr damit die vorher geshifteten
+# Daten. Daher die Lösung:
+OR IN1 1 #% -0.25 leider überschreibt ihr damit die vorher geshifteten
+#% Genial!!! Ich nehne mir mal die Freiheit das in meine Musterlösung zu übernehmen
+OPLUS ACC 2 # ACC = 0...0010 O+ R2, b1 wird geflippt.
+STORE ACC 2 # Speichern des neuen Status in R2.
+# a) end
+#% 4/4 problemlos durchgelaufen, an alles gedacht, perfekt!!!
+
+SUBI IN2 1 # Anpassung des Schleifenzählers.
+MOVE IN2 ACC # Kopiervorgang von IN2 nach ACC, da JUMP den Akkumulator vergleicht.
+JUMP> -11 # Schleife bis IN2 = 0
+# b) end
+# 4.5 / 5
+
+# LOADI DS 0 # Zugriff auf Daten im EPROM.
+# LOAD ACC t # lädt Kodierung von "LOADI PC 0" in den Akkumulator.
+# LOAD DS s # Konstante 100...0 in DS laden --> Zugriff auf SRAM.
+# STOREIN CS IN1 0 # Kopiervorgang von IN1 in die nächste Speicheradresse
+# # nach dem bisher eingelesenen Code.
+# ADDI CS 1
+# # Anpassung des CS.
+# OPLUS ACC IN1 # Vergleich des letzten geschriebenen Befehls mit "LOADI PC 0".
+# JUMP> -7
+# # Sprung zum Einlesen des nächsten Befehls.
+# LOADI DS 0
+# # Zugriff auf Daten im EPROM.
+# LOAD ACC s
+# # Konstante 100...0 (SRAM) in ACC laden.
+# ADDI ACC a
+# # Volle Adresse des ersten eingelesenen Befehls
+# # in den Akkumulator geschrieben.
+# MOVE ACC PC # Ausführung des eingelesenen Programs.
