@@ -1,5 +1,8 @@
 # c) start
-# LOADI SP a korrekt, aber ich bevorzuge:
+# LOADI SP a # ihr habt zu dem Zeitpunkt aber noch nicht die SRAM Konstante im
+# DS und a kann ja nur 22-Bit sein und der EPROM ist nicht beschreibbar, daher
+# ist mir etwas unklar wie das funktionieren soll -0.25
+# damit es mit dem RETI-Interpreter läuft:
 STOREIN SP DS 0
 SUBI SP 1
 # b) start
@@ -19,7 +22,7 @@ ADD IN1 1 # OR ist da besser, weil es an wirklich jedem Index funktioneirt, ADD 
 SUBI ACC 2
 STORE ACC 2
 # a) end
-# 4/4 gut Arbeit ist direkt durchgelaufen ^_^
+# 4/4 gute Arbeit, ist direkt durchgelaufen und an alles gedachst ^_^
 # MULTI IN1 256 # -0.25 leider werdet ihr so einmal zu oft shiften. Macht es
 # daher am besten wie folgt: *1
 SUBI IN2 1
@@ -44,14 +47,11 @@ JUMP -10
 # so geht es eleganter:
 # eucht interessieren nur die letzten most siginificant bits, daher einfach
 # nach rechts shfiten und so braucht ihre auch keiine Konstante zu laden:
-MOVE IN1 ACC
-DIVI ACC 1048576;
-DIVI ACC 4;
-MODI ACC 1024; # links abschneiden da negative Zahlen Problemem machen, da sie 1en einfügen
+LOADI ACC 1835008
+MULTI ACC 1024
 # euch gehen würden: OPLUSI ACC 448; aber um bei eurem Vorgehen zu bleiben:
-SUBI ACC 448
+SUB ACC IN1
 JUMP== 8;
-
 # STORE IN1 SP # Folgefehler, diesen Befehl gibt es nicht, ihr meint vermutlich:
 # STOREIN SP IN1 0
 # ADDI SP 1
@@ -64,6 +64,9 @@ STOREIN ACC IN1 0
 ADDI ACC 1
 STOREIN SP ACC 0
 SUBI SP 1
-JUMP -27;
+JUMP -25;
 # c) end
-# LOADI SP
+# LOADI SP a # diesmal funktioniert es, da nun die SRAM-Konstante hier stehen
+# sollte, aber ich mache das mal über den Jump oben, damit das ganze auch im
+# RETI-Interpreter läuft
+# 4.75/5 sehr gute Arbeit ^_^

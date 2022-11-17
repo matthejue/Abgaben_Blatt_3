@@ -25,12 +25,10 @@ JUMP -12;  # -0.25 Loop springt nicht weit genug zurück
 # Aufgabe b) end
 # LOADI DS 0
 # LOAD DS t
-# So geht es eleganter
-MOVE IN1 ACC
-DIVI ACC 1048576;
-DIVI ACC 4;
-MODI ACC 1024;
-OPLUSI ACC 448; # -0.25 so wie ihr euch das gedacht habt funktioniert das nicht, weil die die anderen Bits nicht alle 0 sind beim gepollten Befehl # aber richtiger Ansatz mit Xor
+# So geht es eleganter:
+LOADI ACC 1835008
+MULTI ACC 1024
+OPLUS ACC IN1; # -0.25 so wie ihr euch das gedacht habt funktioniert das nicht, weil die die anderen Bits nicht alle 0 sind beim gepollten Befehl # aber richtiger Ansatz mit Xor
 JUMP== 8;
 LOADIN SP ACC 1
 ADDI SP 1
@@ -38,7 +36,7 @@ STOREIN ACC IN1 0
 ADDI ACC 1
 STOREIN SP ACC 0
 SUBI SP 1
-JUMP -27;
+JUMP -25;
 # LOADI PC 0; # Korrekto, aber der PicoC-Compiler hat wie er implementiert ist
 # leider schon ein festes Startprogramm
 # Aufgabe c) end

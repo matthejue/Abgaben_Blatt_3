@@ -35,10 +35,8 @@ JUMP -12  # die Bedingung des Jump ist genau falsch rum
 # Register agieren als Boten, um Werte in Speicherzellen zu schreiben
 # ADD IN1 s # -0.25 Aber in IN1 steht doch euer Befehl, den ihr im nächsten Schritt abspeichern
 # so geht es eleganter
-MOVE IN1 ACC
-DIVI ACC 1048576;
-DIVI ACC 4;
-MODI ACC 1024;
+LOADI ACC 1835008
+MULTI ACC 1024
 # wollst an Adressse c # diesen Schritt kann ich nichg ganz nachvollziehen,
 # meindet ihr das DS-Register >_<
 # STOREIN c IN1 0 # ihr schreibt den Befehl im Register IN1, den ihre gerade überschrieben habt nun an Adresse c
@@ -59,7 +57,7 @@ MODI ACC 1024;
 # vergleichen >_<
 
 # So sollte der Schluss ungefähr aussehen:
-OPLUSI ACC 448;
+OPLUS ACC IN1;
 JUMP== 8;
 LOADIN SP ACC 1
 ADDI SP 1
@@ -67,7 +65,7 @@ STOREIN ACC IN1 0
 ADDI ACC 1
 STOREIN SP ACC 0
 SUBI SP 1
-JUMP -27;
+JUMP -25;
 
 # die c) hatte leider keine für mich erkennbare Struktur und hat die Aufgabenstellung und
 # vor allem die schwierigen wirklcih knifflilgen Parts nicht wirklich gelöst, 1/5 für die Mühe

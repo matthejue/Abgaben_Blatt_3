@@ -1,0 +1,8 @@
+c.reti:33:7: UnexpectedCharacter: No terminal matches '+' in the current lexical context of '=='.
+MULTI IN1 256 # -0.25 so shiftet ihr aber am Ende einmal zu viel
+SUBI IN2 1
+JUMP== +2
+     ^ ~  
+     context of '=='
+JUMP -4
+# b) end
