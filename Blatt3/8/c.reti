@@ -21,12 +21,13 @@ LOAD ACC 2
 ANDI ACC 2
 JUMP== -2
 ADD IN1 1
-# LOAD ACC 2 -0.25 ihr überschreibt so aber auch die anderen Bits des Statusregisters mit 0
-# ORI ACC 2 ihr könntest es viel eleganter machen, einfach direkt OPLUS
+# LOAD ACC 2
+# ORI ACC 2 ihr könntest es viel eleganter machen, einfach direkt OPLUS weil
+# ihr in ACC auf jeden Fall nach dem JUMP eine 2 stehen haben müsst
 OPLUS ACC 2
 STORE ACC 2
 # a) end
-# 3.75/4
+# 4/4
 
 # MOVE IN2 ACC wieso so umständlich?
 # SUBI ACC 1

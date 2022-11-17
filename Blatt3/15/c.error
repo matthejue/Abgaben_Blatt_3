@@ -1,0 +1,8 @@
+c.reti:24:6: UnexpectedCharacter: No terminal matches '−' in the current lexical context of '>'.
+# 3.5/4
+ADD IN1 0;
+JUMP> −3;
+    ^ ~   
+    context of '>'
+# b) end
+# /5

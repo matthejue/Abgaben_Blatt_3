@@ -1,0 +1,9 @@
+c.reti:11:4: UnexpectedCharacter: No terminal matches '=' in the current lexical context of JUMP.
+LOAD ACC 2
+ANDI ACC 2;
+JUMP= -2;
+   ^~     
+   context of JUMP
+ADD IN1 1;
+LOAD ACC 2;
+ANDI ACC 253;

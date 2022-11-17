@@ -1,0 +1,53 @@
+# c) start
+# LOADI SP 0 # Ich will alle Korrekturen mit dem RETI-Interpreter ausführbar machen, daher schreibe ich es semantisch etwas um.
+MOVE DS SP
+LOADI IN2 4 # doppelt hält besser, hm
+# b) start
+LOADI IN2 4
+# a) start
+LOADI IN1 0
+LOADI DS 1048576
+MULTI DS 1024
+LOAD ACC 2
+ANDI ACC 2
+# SUBI ACC 2 ANDI allein reicht doch schon, beim JUMP einfach == statt !=
+JUMP== -2
+# ADD IN1 0 # -0.25 das Empfangsregister ist das Bit 1, also 1 = 0b1, also
+ADD IN1 1
+LOAD ACC 2
+ANDI ACC 253 # jup funktioniert
+STORE ACC 2
+# a) end
+# 3.75/4
+# MULTI IN1 256 # -0.25 hierdurch wird einmal zu viel geshiftet
+# Aber die Lösung ist einfach... siehe weiter vorne
+SUBI IN2 1
+MOVE IN2 ACC
+# -0.25 vergessen Wert von IN2 in das ACC Register zu stecken damit das JUMP
+# darauf zugreifen kann
+JUMP== 3
+MULTI IN1 256
+JUMP -11
+# b) end
+# 4.75/5
+# LOADI DS 0
+# LOAD DS s
+# für den RETI-Interprter muss das umgeschrieben werden:
+LOADI DS -2097152
+MULTI DS 1024
+# STOREIN a IN1 SP # -0.25 diesen Befehl gibt es nicht, aber ich denke du
+# meinst:
+STOREIN SP IN1 0
+ADDI SP 1
+# LOADI DS 0
+# LOAD ACC t
+# LOAD DS s wieso schon wieder?
+# für den RETI-Interpreter muss das umgeschrieben werden:
+LOADI ACC 1835008
+MULTI ACC 1024
+SUB ACC IN1
+JUMP!= -24
+# JUMP a
+# wegen des RETI-Interpreters wurde es so umgesetzt, dass das von der UART gelesene Programm einfach am Anfang des Datensegments steht
+# c) end
+# 4.75/5

@@ -1,0 +1,30 @@
+# # b) start
+LOADI IN2 4;
+# a) start
+LOADI IN1 0;
+MULTI IN1 256 # -0.25 shiften vergessen
+# LOADI DS 0;
+# LOAD DS r;
+# LOADI SP 0 # Ich will alle Korrekturen mit dem RETI-Interpreter ausführbar machen, daher schreibe ich es semantisch etwas um.
+LOADI DS 1048576
+MULTI DS 1024
+LOAD ACC 2;
+# ADDI IN1 1; -0.25 funktioniert nicht, ihr meint wohl eher
+ANDI ACC 2
+JUMP== -2;
+ADD IN1 1;
+LOAD ACC 2;
+# -0.25 wenn ihr das Bit Nr.1 des Statusregisters 0 setzen wollt, muss da noch
+# ein Schritt dazwischen stattfinden, wie:
+SUBI ACC 2
+STORE ACC 2;
+# a) end
+# 3.5/4
+# ADD IN1 0;
+# Counter muss runtergezählt werden und in ACC geschoben werden um vom JUMP
+# verglichen werden zu können
+SUBI IN2 1
+MOVE IN2 ACC
+JUMP> -12;
+# b) end
+# /5

@@ -1,0 +1,49 @@
+# c) start
+# LOADI SP a; # ist korrekt aber...
+# Ich will alle Korrekturen mit dem RETI-Interpreter ausführbar machen, daher schreibe ich es semantisch etwas um.
+MOVE DS SP
+
+# b) start
+LOADI IN2 4;
+LOADI IN1 0;
+# MULTI IN1 256 # -0.25 Wenn MULTI hier ist, dann wird im nächsten Schritt aber IN1 gleich wieder mit 0 überschrieben
+# a) start
+LOADI IN1 0
+MULTI IN1 256
+# LOADI DS 0
+# LOADI DS r
+# # Ich will alle Korrekturen mit dem RETI-Interpreter ausführbar machen, daher schreibe ich es semantisch etwas um.
+LOADI DS 1048576
+MULTI DS 1024
+
+LOAD ACC 2
+ANDI ACC 2;
+JUMP== -2;
+ADD IN1 1;
+LOAD ACC 2;
+ANDI ACC 253; # raffiniert, ihr seid die ersten die es so machen ^^
+STORE ACC 2;
+# a) end
+# 4/4
+SUBI IN2 1;
+MOVE IN2 ACC;
+JUMP> -12;
+# b) end
+# 4.75/5
+# LOADI DS 0;
+# LOAD DS s;
+# SRAM Konstante zu laden ist nicht notwendig bei STOREIN und LOADIN
+STOREIN SP IN1 0;
+ADDI SP 1;
+# Ich muss es für den RETI-Interpreter etwas umschreiben
+# LOADI DS 0;
+# MOVE IN1 ACC;
+LOADI ACC -1835009
+MULTI ACC 1024
+ORI ACC 1023
+AND ACC IN1;
+JUMP!= -22;
+# LOADI PC 0; # Das ist mit dem RETI-Interpreter nicht umsetzbar, daher steht
+# das von der UART gelesene Programm einfach am Anfang des Datensegments
+# c) end
+# 5/5
