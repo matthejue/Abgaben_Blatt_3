@@ -1,0 +1,39 @@
+## load num1 and num2
+CALL INPUT IN2 # number of tests
+CALL INPUT ACC
+STOREIN DS ACC 0
+CALL INPUT ACC
+STOREIN DS ACC 1
+## test num1 <= num2
+LOADIN DS ACC 1 # ich muss das ganze leicht abändern, damit ich es mit dem RETI-Interpreter des PicoC-Compilers verwenden kann
+JUMP< 7
+LOADIN DS ACC 0
+JUMP< 13
+LOADIN DS IN1 1
+# SUB ACC 11  -0.5 den Befehl gibt es immer noch nicht, es gibt nur SUBI >_<
+SUB ACC IN1 # num1 <= num2 <-> num1 - num2 <= 0
+JUMP<= 10
+JUMP 7
+LOADIN DS ACC 0
+JUMP>= 5
+# LOADIN DS ACC 1 # -0.5 ihr habt es falsch rum
+# LOADIN DS IN1 0, so muss es sein:
+LOADIN DS ACC 0 # -0.5 ihr habt es falsch rum
+LOADIN DS IN1 1
+# SUB ACC 10 ich muss das leider leicht abändert
+SUB ACC IN1
+JUMP<= 3
+# STORE 12 0 # den Befehl gibt es leider immer noch nicht, ich ziehe euch mal
+# keine weiteren Punkte dafür ab >_<
+LOADI ACC 0
+# JUMP 0
+JUMP 2
+# STORE 12 1 # Folgefehler
+LOADI ACC 1
+CALL PRINT ACC
+SUBI IN2 1
+MOVE IN2 ACC
+JUMP!= -25
+# 5/6 sehr gute Arbeit, musst nur leicht korrigiert werden und ihr solltet
+# vielleicht keine neuen RETI-Befehle erfinden, dann bekommt ihr vielleicht mal
+# volle Punktzahl .o.

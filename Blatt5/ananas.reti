@@ -1,0 +1,22 @@
+# LOADIN SP ACC 2
+# LOADIN SP IN2 1
+# ich muss es etwas abändern damit es mit dem RETI-Interpreter durchläuft
+SUBI SP 1
+LOADI ACC -12
+LOADI IN2 10
+
+# Wieos das ganze? Danch wird IN1 doch nie wieder verwendet?
+# LOADIN SP IN1 1
+# MULTI IN1 -1
+
+ADD ACC IN2
+# hier kann doch ngeau das gleiche Problem auftreten, welches in der Aufgabe doch
+# eingetlich vermieden werden soll?
+JUMP>= 3
+LOADI ACC 0
+JUMP 2
+LOADI ACC 1
+STOREIN SP ACC 1
+# ADDI SP 1 macht hier keinen Sinn
+# 1/6 für die Mühe. Ich sehe allerdings keinen korrekten Ansatz zur Lösung der
+# Aufgabe, weshalb zu wenig das ist, als das ich noch abändern kann, damit es läuft
