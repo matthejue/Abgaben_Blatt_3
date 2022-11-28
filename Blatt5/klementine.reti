@@ -1,0 +1,29 @@
+## load num1 and num2
+CALL INPUT IN2 # number of tests
+CALL INPUT ACC
+STOREIN DS ACC 0
+CALL INPUT ACC
+STOREIN DS ACC 1
+## test num1 <= num2
+SUBI SP 1;
+LOADIN DS ACC 0;
+JUMP<= 4;
+LOADIN DS ACC 1;
+JUMP>= 5;
+JUMP 8;
+LOADIN DS ACC 1;
+JUMP<= 2;
+JUMP 7;
+LOADIN DS ACC 0;
+LOADIN DS IN1 1;
+SUB ACC IN1;
+JUMP<= 3;
+LOADI ACC 0;
+JUMP 2;
+LOADI ACC 1;
+
+CALL PRINT ACC
+SUBI IN2 1
+MOVE IN2 ACC
+JUMP!= -24
+# 6/6 ist direkt durchgelaufen mit allen Tests, sehr gute Arbeit! ^_^

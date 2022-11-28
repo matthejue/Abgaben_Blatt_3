@@ -1,0 +1,44 @@
+## load num1 and num2
+CALL INPUT IN2 # number of tests
+CALL INPUT ACC
+STOREIN DS ACC 0
+CALL INPUT ACC
+STOREIN DS ACC 1
+## test num1 <= num2
+LOADI ACC 1
+MULTI ACC 65536
+MULTI ACC 32768
+STORE ACC 50
+LOADIN DS ACC 0 # ich muss das leicht umschreiben, damit es mit dem RETI-Interpreter funktioniert
+LOADIN DS IN1 1
+AND ACC 50
+AND IN1 50
+# SUB ACC IN1 # das ganze funktioniert leider nicht aufgrund einer Sache an die man nicht denkt: die Negation von 100000 ist 100000, genauer 100000 -> 11111 + 1 -> 100000, also bei 0 - 10...000 wird 10...000 rauskommen, daher muss mit AND etwas nachgeholfen werden
+OPLUS ACC IN1 # daher einfach OPLUS verwenden
+JUMP== 5
+# JUMP< 4
+# gebe 1 aus
+LOADIN DS ACC 1
+JUMP< 10
+# gebe 0 aus
+LOADIN DS ACC 0
+JUMP< 5
+LOADIN DS ACC 0
+LOADIN DS IN1 1
+SUB ACC IN1
+JUMP> 4
+# gebe 1 aus
+LOADI ACC 1
+CALL PRINT ACC
+JUMP 3
+# gebe 0 aus
+LOADI ACC 0
+CALL PRINT ACC
+# JUMP 0
+
+SUBI IN2 1
+MOVE IN2 ACC
+JUMP!= -30
+# 4/6 interessanter Ansatz, denn bisher keine andere Gruppe so hatte. Etwas
+# untrukturiert und musste etwas aufwändiger umgeschrieben werden damit es
+# funktioniert
