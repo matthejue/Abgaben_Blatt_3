@@ -150,48 +150,27 @@ STOREIN DS ACC 1;
 LOADIN SP ACC 24;
 STOREIN DS ACC 0;
 ADDI SP 24;
-# // Exp(Subscr(Subscr(Subscr(Name('ar'), Num('3')), Num('1')), Num('2')))
-# Ref(Global(Num('0')))
-SUBI SP 1;
-LOADI IN1 0;
-ADD IN1 DS;
-STOREIN SP IN1 1;
-# Exp(Num('3'))
+## code^aa (e_1)
 SUBI SP 1;
 LOADI ACC 3;
 STOREIN SP ACC 1;
-# Ref(Subscr(Stack(Num('2')), Stack(Num('1'))))
-LOADIN SP IN1 2;
-LOADIN SP IN2 1;
-MULTI IN2 6;
-ADD IN1 IN2;
-ADDI SP 1;
-STOREIN SP IN1 1;
-# Exp(Num('1'))
+## code^aa (e_2)
 SUBI SP 1;
 LOADI ACC 1;
 STOREIN SP ACC 1;
-# Ref(Subscr(Stack(Num('2')), Stack(Num('1'))))
-LOADIN SP IN1 2;
-LOADIN SP IN2 1;
-MULTI IN2 3;
-ADD IN1 IN2;
-ADDI SP 1;
-STOREIN SP IN1 1;
-# Exp(Num('2'))
+## code^aa (e_3)
 SUBI SP 1;
 LOADI ACC 2;
 STOREIN SP ACC 1;
-# Ref(Subscr(Stack(Num('2')), Stack(Num('1'))))
-LOADIN SP IN1 2;
-LOADIN SP IN2 1;
-MULTI IN2 1;
-ADD IN1 IN2;
-ADDI SP 1;
-STOREIN SP IN1 1;
-# Exp(Stack(Num('1')))
-LOADIN SP IN1 1;
-LOADIN IN1 ACC 0;
-STOREIN SP ACC 1;
-# Return(Empty())
-LOADIN BAF PC -1;
+## start
+LOAD ACC SP 3
+MULI ACC 6
+MOVE ACC IN1
+LOAD ACC SP 2
+MULI ACC 3
+ADDI IN1 ACC
+LOAD ACC SP 1
+MULI ACC 1
+ADDI IN1 ACC
+ADDI IN1 a
+## end
