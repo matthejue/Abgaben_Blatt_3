@@ -1,0 +1,34 @@
+# Exp(Call(Name('input'), []))
+LOADI ACC 3
+SUBI SP 1;
+STOREIN SP ACC 1;
+# Assign(Global(Num('1')), Stack(Num('1')))
+LOADIN SP ACC 1;
+STOREIN DS ACC 1;
+ADDI SP 1;
+# // Assign(Name('x'), Call(Name('input'), []))
+# Exp(Call(Name('input'), []))
+LOADI ACC 15
+SUBI SP 1;
+STOREIN SP ACC 1;
+# Assign(Global(Num('0')), Stack(Num('1')))
+LOADIN SP ACC 1;
+STOREIN DS ACC 0;
+ADDI SP 1;
+# -1.5 diesmal solltet ihr das gesamte Programm übersetzen >_<
+# -2 ich muss leider Punkte abziehen, weil die Aufgabe so gedacht war, dass ihr die Patterns aus der Vorlesung verwenden sollt: "Werten Sie die Ausdrücke und Anweisungsfolgen aus, wie Sie es in der Vorlesung gelernt haben". In der Klausur könnte es dafür einen größeren Punktabzug geben, da es nicht spezifziert war, dass es dafür überhaupt Punkte geben sollte
+LOADIN DS IN2 1
+LOADIN DS ACC 0 # -0.5 das ist die main-Funktion
+# LOADIN DS ACC 3 -0.5 z ist eine Konstante, die steht nicht im Hauptspeicher
+MULTI IN2 2 # der Befehl heißt MULT nicht MUL ^^
+SUB ACC IN2
+# JUMP> 5 -0.5 falsche Relation
+JUMP< 5
+# LOAD ACC IN2 # -0.5 mal wieder ein neuer erfunder Befehl, vielleicht sollte ich Scholl vorschlagen den mitaufzunehmen, weil ihr Studies MOVE ACC IN2 nicht nutzen wollt ^^
+LOADIN DS ACC 0
+SUBI ACC 3 # -0.5 so wie ihr euch das gedacht habt, funktioniert das nicht, weil ihr bei der Auswertung der Schleifenbedingungen ACC bereits überschreibt
+STOREIN DS ACC 0
+# bei dieser Aufgabe wären die Patterns aus der Vorlesung sicherer
+JUMP -6
+SUBI SP 1
+# JUMP 0
