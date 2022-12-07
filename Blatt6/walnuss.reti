@@ -163,14 +163,23 @@ SUBI SP 1;
 LOADI ACC 2;
 STOREIN SP ACC 1;
 ## start
-LOAD ACC SP 3
-MULI ACC 6
-MOVE ACC IN1
-LOAD ACC SP 2
-MULI ACC 3
-ADDI IN1 ACC
-LOAD ACC SP 1
-MULI ACC 1
-ADDI IN1 ACC
-ADDI IN1 a
+# diesen Befehl LOAD ACC SP 3 gibt es nicht, ihr meint wohl LOADIN und SP und
+# ACC genau falsch rum -0.5
+ADD IN1 DS
+LOADIN SP ACC 3
+MULTI ACC 6
+# MOVE IN1 ACC wozu?
+ADD IN1 ACC # -0.5 einfach nach jedem Schritt IN1 aufaddieren
+LOADIN SP ACC 2
+MULTI ACC 3
+ADD IN1 ACC
+LOADIN SP ACC 1
+MULTI ACC 1
+# ADDI IN1 ACC das sollte ADD ohne I sein, sonst gibt es den Befehl nicht
+ADD IN1 ACC
+# ADDI IN1 a # -0.5 das funktioniert nicht, weil Immediates nur 22-Bit sind,
+ADDI SP 3
+# die ABI nicht vergessen und Platz auf dem Stack schaffen -0.5
+# -0.5 es musste viel korrigiert werden damit es durchläuft
 ## end
+# 4/6 Grundidee stimmt, aber es musste viel korrigiert werden damit es durchläuft

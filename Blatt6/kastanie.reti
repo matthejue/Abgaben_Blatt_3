@@ -150,27 +150,31 @@ STOREIN DS ACC 1;
 LOADIN SP ACC 24;
 STOREIN DS ACC 0;
 ADDI SP 24;
-## code^aa (e_3)
+## code^aa (e_1)
 SUBI SP 1;
-LOADI ACC 2;
+LOADI ACC 3;
 STOREIN SP ACC 1;
 ## code^aa (e_2)
 SUBI SP 1;
 LOADI ACC 1;
 STOREIN SP ACC 1;
-## code^aa (e_1)
+## code^aa (e_3)
 SUBI SP 1;
-LOADI ACC 3;
+LOADI ACC 2;
 STOREIN SP ACC 1;
 ## start
- LOADI ACC codeaa(e1)
- MULI ACC 6
- STORE ACC 0
- LOADI ACC codeaa(e2)
- MULI ACC 3
- STORE ACC 0
- LOADI ACC codeaa(e3)
- ADD ACC 0
- ADD ACC 1
- STOREIN IN1 ACC
+# LOADI ACC codeaa(e1) # -1 so funktioniert codeaa nicht, verwenden wird es wie oben
+LOADIN SP ACC 3
+MULTI ACC 6
+STORE ACC 172
+# LOADI ACC codeaa(e2)
+LOADIN SP ACC 2
+MULTI ACC 3
+STORE ACC 173 # -0.5 nicht 0
+# LOADI ACC codeaa(e3)
+LOADIN SP ACC 1
+ADD ACC DS
+ADD ACC 172
+ADD ACC 173
 ## end
+# 4.5/6 Grundidee stimmt und läuft durch, aber etwas unelegant umgesetzt
