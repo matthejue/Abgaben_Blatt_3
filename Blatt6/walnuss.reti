@@ -169,7 +169,7 @@ ADD IN1 DS
 LOADIN SP ACC 3
 MULTI ACC 6
 # MOVE IN1 ACC wozu?
-ADD IN1 ACC # -0.5 einfach nach jedem Schritt IN1 aufaddieren
+ADD IN1 ACC # einfach nach jedem Schritt IN1 aufaddieren
 LOADIN SP ACC 2
 MULTI ACC 3
 ADD IN1 ACC
@@ -182,4 +182,4 @@ ADDI SP 3
 # die ABI nicht vergessen und Platz auf dem Stack schaffen -0.5
 # -0.5 es musste viel korrigiert werden damit es durchläuft
 ## end
-# 4/6 Grundidee stimmt, aber es musste viel korrigiert werden damit es durchläuft
+# 4.5/6 Grundidee stimmt, aber es musste viel korrigiert werden damit es durchläuft
