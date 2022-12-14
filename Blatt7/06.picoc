@@ -1,0 +1,16 @@
+int ggt(int a, int b) {
+  if (a == 0)
+    return b;
+  else if (b == 0)
+    return a; // Rücksp.addr. X2
+  else if (a <= b)
+    return ggt(a, b-a); // Rücksp.addr. X3
+  else
+    return ggt(a-b, b); // Rücksp.addr. X4
+}
+
+void main() {
+  int ggt_result;
+  ggt_result = ggt(16, 12);
+  print(ggt_result);
+}

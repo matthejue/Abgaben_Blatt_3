@@ -1,0 +1,7 @@
+06.picoc:15:8: UnexpectedCharacter: No terminal matches '"' in the current lexical context of '('.
+  int ggt_result;
+  ggt_result = ggt(16, 12);
+  print("%d", ggt_result);
+       ^~                  
+       context of '('      
+}
